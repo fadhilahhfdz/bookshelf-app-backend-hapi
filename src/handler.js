@@ -55,7 +55,7 @@ const addBookHandler = (request, h) => {
 
   books.push(newBook);
 
-  const isSuccess = books.filter((book) => book.id === id).length > 0;
+  const isSuccess = books.some((book) => book.id === id);
 
   if (isSuccess) {
     const response = h.response({
@@ -81,12 +81,12 @@ const getAllBooksHandler = (request, h) => {
     );
   }
 
-  if (reading !== undefined) {
+  if (reading) {
     const isReading = reading === '1';
     filteredBooks = filteredBooks.filter((book) => book.reading === isReading);
   }
 
-  if (finished !== undefined) {
+  if (finished) {
     const isFinished = finished === '1';
     filteredBooks = filteredBooks.filter(
       (book) => book.finished === isFinished
